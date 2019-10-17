@@ -1,25 +1,25 @@
-#python É¾³ıcsvÎÄ¼ş¶àÓà¿ªÍ·(ÒÔ±ãR´¦Àí).py
+#python åˆ é™¤csvæ–‡ä»¶å¤šä½™å¼€å¤´(ä»¥ä¾¿Rå¤„ç†).py
 
-rm(list = ls())#Çå¿Õ±äÁ¿
+rm(list = ls())#æ¸…ç©ºå˜é‡
 
-library(stringr)#Í¨Åä·ûÌáÈ¡×Ö·û´®ÄÚÈİ
+library(stringr)#é€šé…ç¬¦æå–å­—ç¬¦ä¸²å†…å®¹
 
-###################################################²ÎÊı
-num_cycle = 2#Ñ­»·Êı
-stress_loading = 900#Ó¦Á¦
-stress_unloading = 5#Ó¦Á¦
+###################################################å‚æ•°
+num_cycle = 1#å¾ªç¯æ•°
+stress_loading = 900#åº”åŠ›
+stress_unloading = 5#åº”åŠ›
 ##################################################
 
 
 
 
-#***************Ğ¶ÔØ¶ÎÆğÊ¼µãËÑË÷º¯Êı************
+#***************å¸è½½æ®µèµ·å§‹ç‚¹æœç´¢å‡½æ•°************
 find.index.start = function(data, index_current, stress = 500) {
   for (i in index_current+99:nrow(data)){
     if(i+9>nrow(data)){
-      stop("´íÎó£ºËÑË÷½áÊø£¬Î´ËÑË÷µ½Ğ¶ÔØÆğÊ¼µã!")
+      stop("é”™è¯¯ï¼šæœç´¢ç»“æŸï¼Œæœªæœç´¢åˆ°å¸è½½èµ·å§‹ç‚¹!")
     }
-    #Ñ°ÕÒµã£º´¦ÓÚ±£ÔØÎªstressµÄ½×¶Î£¬ÇÒÔÚ(stress-0.25, stress+0.25)·¶Î§ÄÚ£¬ÇÒ´Ó´Ë´¦10¸öÊıµİ¼õ£¬ÇÒºóÃæ9¸öÖÁÉÙ6¸öĞ¡ÓÚstress-2
+    #å¯»æ‰¾ç‚¹ï¼šå¤„äºä¿è½½ä¸ºstressçš„é˜¶æ®µï¼Œä¸”åœ¨(stress-0.25, stress+0.25)èŒƒå›´å†…ï¼Œä¸”ä»æ­¤å¤„10ä¸ªæ•°é€’å‡ï¼Œä¸”åé¢9ä¸ªè‡³å°‘6ä¸ªå°äºstress-2
     if(sum(round(data[(i-99):i,4]) == stress) == 100 &&
        sum(data[i:(i+8),4] - data[(i+1):(i+9),4] > 0) == 9 &&
        stress-0.25 <= data[i,4] && data[i,4] <= stress+0.25 &&
@@ -37,16 +37,16 @@ find.index.start = function(data, index_current, stress = 500) {
   return(i)
 }
 
-#***************Ğ¶ÔØ¶Î½áÊøµãËÑË÷º¯Êı************
+#***************å¸è½½æ®µç»“æŸç‚¹æœç´¢å‡½æ•°************
 find.index.end = function(data, index_current,stress) {
   for (i in index_current+9:nrow(data)){
     if(i+5>nrow(data)){
-      stop("´íÎó£ºËÑË÷½áÊø£¬Î´ËÑË÷µ½Ğ¶ÔØ½áÊøµã!")
+      stop("é”™è¯¯ï¼šæœç´¢ç»“æŸï¼Œæœªæœç´¢åˆ°å¸è½½ç»“æŸç‚¹!")
     }
     if(round(data[i,4]) == stress){
-      stop("´íÎó£ºÒÑµ½ÏÂÒ»Ñ­»·£¬Î´ËÑË÷µ½Ğ¶ÔØ½áÊøµã!")
+      stop("é”™è¯¯ï¼šå·²åˆ°ä¸‹ä¸€å¾ªç¯ï¼Œæœªæœç´¢åˆ°å¸è½½ç»“æŸç‚¹!")
     }
-    #Ñ°ÕÒµã£ºµ½´Ë´¦10¸öÊıÖÁÉÙ9¸öµİ¼õ£¬ÇÒÆäÇ°5¸öµãºó3¸öµã¾ø¶ÔÖµ¾ù´óÓÚ¸Ãµã
+    #å¯»æ‰¾ç‚¹ï¼šåˆ°æ­¤å¤„10ä¸ªæ•°è‡³å°‘9ä¸ªé€’å‡ï¼Œä¸”å…¶å‰5ä¸ªç‚¹å3ä¸ªç‚¹ç»å¯¹å€¼å‡å¤§äºè¯¥ç‚¹
     if(sum(data[(i-9):(i-1),4] - data[(i-8):(i),4] > 0) >= 8 &&
        sum(abs(data[(i-5):(i+4),4]) - abs(data[i,4]) > 0) >= 8){
       break
@@ -57,22 +57,22 @@ find.index.end = function(data, index_current,stress) {
   print(data[i,4:5])
   print(data[(i+1):(i+9),4:5])
   if(data[i,4]>1){
-    print("¾¯¸æ£ºĞ¶ÔØ½áÊøµã´óÓÚ1MPa")
+    print("è­¦å‘Šï¼šå¸è½½ç»“æŸç‚¹å¤§äº1MPa")
   }
   print("****************************")
   return(i)
 }
 
-#***************³¬µ¯ĞÔÓ¦±ä½áÊøµãËÑË÷º¯Êı************
+#***************è¶…å¼¹æ€§åº”å˜ç»“æŸç‚¹æœç´¢å‡½æ•°************
 find.index.strainEnd = function(data, index_current, stress = 500, stress.low = 5) {
   for (i in index_current+99:nrow(data)){
     if(i+9>nrow(data)){
-      stop("´íÎó£ºËÑË÷½áÊø£¬Î´ËÑË÷µ½³¬µ¯ĞÔÓ¦±ä½áÊøµã!")
+      stop("é”™è¯¯ï¼šæœç´¢ç»“æŸï¼Œæœªæœç´¢åˆ°è¶…å¼¹æ€§åº”å˜ç»“æŸç‚¹!")
     }
     if(round(data[i,4]) == stress){
-      stop("´íÎó£ºÒÑµ½ÏÂÒ»Ñ­»·£¬Î´ËÑË÷µ½³¬µ¯ĞÔÓ¦±ä½áÊøµã!")
+      stop("é”™è¯¯ï¼šå·²åˆ°ä¸‹ä¸€å¾ªç¯ï¼Œæœªæœç´¢åˆ°è¶…å¼¹æ€§åº”å˜ç»“æŸç‚¹!")
     }
-    #Ñ°ÕÒµã£º´¦ÓÚ±£ÔØÎªstress.lowµÄ½×¶Î£¬ÇÒÔÚ(stress-0.1, stress+0.1)·¶Î§ÄÚ£¬ÇÒ´Ó´Ë´¦20¸öÊıÖÁÉÙ15¸öµİÔö£¬ÇÒºóÃæµÚ19¸öÊı´óÓÚstress.low+0.7
+    #å¯»æ‰¾ç‚¹ï¼šå¤„äºä¿è½½ä¸ºstress.lowçš„é˜¶æ®µï¼Œä¸”åœ¨(stress-0.1, stress+0.1)èŒƒå›´å†…ï¼Œä¸”ä»æ­¤å¤„20ä¸ªæ•°è‡³å°‘15ä¸ªé€’å¢ï¼Œä¸”åé¢ç¬¬19ä¸ªæ•°å¤§äºstress.low+0.7
     if(sum(round(data[(i-99):i,4]) == stress.low) >= 99 &&
        sum(data[i:(i+18),4] - data[(i+1):(i+19),4] < 0) >= 14 &&
        stress.low-0.1 <= data[i,4] && data[i,4] <= stress.low+0.1 &&
@@ -91,7 +91,7 @@ find.index.strainEnd = function(data, index_current, stress = 500, stress.low = 
 
 fname = file.choose()
 data = read.csv(fname, )
-names(data)[4:5] <- c("Stress","Strain")#ÎªÌØ¶¨ÁĞÃüÃû
+names(data)[4:5] <- c("Stress","Strain")#ä¸ºç‰¹å®šåˆ—å‘½å
 data[,4] = as.double(as.character(data[,4]))
 data[,5] = as.double(as.character(data[,5]))
 
@@ -101,11 +101,11 @@ data_integrate = data.frame()
 i_current = 1
 
 
-#*********************ËÑË÷Ğ¶ÔØ¶ÎÇúÏßµÄÆğÊ¼¡¢½áÊøµãË÷Òı***********************
+#*********************æœç´¢å¸è½½æ®µæ›²çº¿çš„èµ·å§‹ã€ç»“æŸç‚¹ç´¢å¼•***********************
 for(i in 1:num_cycle){
   i_current = data_index[i,1] = find.index.start(data,i_current,stress_loading)
   i_current = data_index[i,2] = find.index.end(data,i_current,stress_loading)
-  if(i<num_cycle){#×îºóÒ»¸öÑ­»·²»ËÑË÷³¬µ¯ĞÔÓ¦±ä½áÊøµã£¬ÈÏÎªÇúÏß½áÊøµãÎª³¬µ¯ĞÔÓ¦±ä½áÊøµã
+  if(i<num_cycle){#æœ€åä¸€ä¸ªå¾ªç¯ä¸æœç´¢è¶…å¼¹æ€§åº”å˜ç»“æŸç‚¹ï¼Œè®¤ä¸ºæ›²çº¿ç»“æŸç‚¹ä¸ºè¶…å¼¹æ€§åº”å˜ç»“æŸç‚¹
     i_current = data_index[i,3] = find.index.strainEnd(data,i_current,stress_loading,stress_unloading)
   }
   else{
@@ -113,22 +113,22 @@ for(i in 1:num_cycle){
       i_current = data_index[i,3] = nrow(data)
     }
     else{
-      print("¾¯¸æ£ºÇúÏß½áÊøµãÓ¦Á¦²»µÈÓÚĞ¶ÔØ±£ÔØÓ¦Á¦£¬³¢ÊÔËÑË÷³¬µ¯ĞÔÓ¦±ä½áÊøµã...")
+      print("è­¦å‘Šï¼šæ›²çº¿ç»“æŸç‚¹åº”åŠ›ä¸ç­‰äºå¸è½½ä¿è½½åº”åŠ›ï¼Œå°è¯•æœç´¢è¶…å¼¹æ€§åº”å˜ç»“æŸç‚¹...")
       i_current = data_index[i,3] = find.index.strainEnd(data,i_current,stress_loading,stress_unloading)
       }
   }
   
-  #»ı·Ö¼ÆËãĞ¶ÔØ¹¦¡¢¼ÆËã³¬µ¯ĞÔÓ¦±ä(½öĞ¶ÔØ¹ı³Ì)¡¢¼ÆËã³¬µ¯ĞÔÓ¦±ä
+  #ç§¯åˆ†è®¡ç®—å¸è½½åŠŸã€è®¡ç®—è¶…å¼¹æ€§åº”å˜(ä»…å¸è½½è¿‡ç¨‹)ã€è®¡ç®—è¶…å¼¹æ€§åº”å˜
   f <- approxfun(x = data[(data_index[i,1]:data_index[i,2]),5], y = data[(data_index[i,1]:data_index[i,2]),4],
-                 method = "linear")#ÏßĞÔ²åÖµº¯Êı
+                 method = "linear")#çº¿æ€§æ’å€¼å‡½æ•°
   data_integrate[i,1] = i
-  data_integrate[i,2] = integrate(f, data[data_index[i,1],5], data[data_index[i,2],5])[1] #ÏßĞÔ²åÖµº¯ÊıÃæ»ı»ı·Ö
+  data_integrate[i,2] = integrate(f, data[data_index[i,1],5], data[data_index[i,2],5])[1] #çº¿æ€§æ’å€¼å‡½æ•°é¢ç§¯ç§¯åˆ†
   data_integrate[i,2] = abs(data_integrate[i,2])
   data_integrate[i,3] = data[data_index[i,1],5] - data[data_index[i,2],5]
   data_integrate[i,4] = data[data_index[i,1],5] - data[data_index[i,3],5]
 }
-names(data_integrate)[1:4] = c("Cycle", "Work per Unit Volume","³¬µ¯ĞÔÓ¦±ä(½öĞ¶ÔØ¹ı³Ì)","³¬µ¯ĞÔÓ¦±ä(×îºóÒ»¸öÑ­»·°´ÇúÏß½áÊøµãÓ¦±ä¼ÆËã)")
-#*********************ÇúÏßÊı¾İ***********************
+names(data_integrate)[1:4] = c("Cycle", "Work per Unit Volume","è¶…å¼¹æ€§åº”å˜(ä»…å¸è½½è¿‡ç¨‹)","è¶…å¼¹æ€§åº”å˜(æœ€åä¸€ä¸ªå¾ªç¯æŒ‰æ›²çº¿ç»“æŸç‚¹åº”å˜è®¡ç®—)")
+#*********************æ›²çº¿æ•°æ®***********************
 data_unloadingCurve = list()
 for (i in 1:num_cycle) {
   data_unloadingCurve[[i]] = data[data_index[i,1]:data_index[i,2],5:4]
@@ -140,7 +140,7 @@ if(num_cycle>1) {
   }
 }
 
-#*******************Ô­Ê¼À­ÉìÇúÏßÍ¼*********************
+#*******************åŸå§‹æ‹‰ä¼¸æ›²çº¿å›¾*********************
 plot(x = data[data_index[1,1]:data_index[1,2],5], y = data[data_index[1,1]:data_index[1,2],4],type = "l",
      xlab = "Strain (%)", ylab = "Stress (MPa)",
      main = paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_",num_cycle," cycles",sep = ""))
@@ -150,22 +150,22 @@ if (num_cycle>1){
   }
 }
 
-#*******************±£´æcsvÎÄ¼ş*********************
-if (dir.exists(paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_Êı¾İ´¦Àí//",sep = "")) == F){#²éÑ¯Ä¿Â¼ÊÇ·ñ´æÔÚ
-  dir.create(paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_Êı¾İ´¦Àí//",sep = "")) #´´½¨ÎÄ¼ş¼Ğ
+#*******************ä¿å­˜csvæ–‡ä»¶*********************
+if (dir.exists(paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_æ•°æ®å¤„ç†//",sep = "")) == F){#æŸ¥è¯¢ç›®å½•æ˜¯å¦å­˜åœ¨
+  dir.create(paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_æ•°æ®å¤„ç†//",sep = "")) #åˆ›å»ºæ–‡ä»¶å¤¹
 }
 
 write.csv(data_integrate, row.names = F,
-          paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_Êı¾İ´¦Àí//",
-                str_extract_all(fname,"[^(\\\\)]+.csv"),"_»ı·Ö½á¹û.csv",sep = ""))#Í¨Åä·ûÌáÈ¡ÎÄ¼şÃû
+          paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_æ•°æ®å¤„ç†//",
+                str_extract_all(fname,"[^(\\\\)]+.csv"),"_ç§¯åˆ†ç»“æœ.csv",sep = ""))#é€šé…ç¬¦æå–æ–‡ä»¶å
 for (i in 1:num_cycle) {
   write.csv(data_unloadingCurve[[i]], row.names = F,
-            paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_Êı¾İ´¦Àí//",
-                  str_extract_all(fname,"[^(\\\\)]+.csv"),"_Ğ¶ÔØÇúÏß_Cycle",as.character(i),".csv",sep = ""))#Í¨Åä·ûÌáÈ¡ÎÄ¼şÃû
+            paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_æ•°æ®å¤„ç†//",
+                  str_extract_all(fname,"[^(\\\\)]+.csv"),"_å¸è½½æ›²çº¿_Cycle",as.character(i),".csv",sep = ""))#é€šé…ç¬¦æå–æ–‡ä»¶å
   if(num_cycle>1 && i < num_cycle) {
   write.csv(data_unloadingProlongingCurve[[i]], row.names = F,
-            paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_Êı¾İ´¦Àí//",
-                  str_extract_all(fname,"[^(\\\\)]+.csv"),"_Ğ¶ÔØ+±£ÔØÇúÏß_Cycle",as.character(i),".csv",sep = ""))
+            paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_æ•°æ®å¤„ç†//",
+                  str_extract_all(fname,"[^(\\\\)]+.csv"),"_å¸è½½+ä¿è½½æ›²çº¿_Cycle",as.character(i),".csv",sep = ""))
   }
 }
 
