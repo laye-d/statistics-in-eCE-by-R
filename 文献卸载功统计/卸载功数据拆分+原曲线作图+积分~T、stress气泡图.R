@@ -1,40 +1,40 @@
 library(ggplot2)
-library(stringr)#Í¨Åä·ûÌáÈ¡×Ö·û´®ÄÚÈİ
-library(reshape2)#melt£¬ggplot»­¶àÌõÇúÏß
+library(stringr)#é€šé…ç¬¦æå–å­—ç¬¦ä¸²å†…å®¹
+library(reshape2)#meltï¼Œggplotç”»å¤šæ¡æ›²çº¿
 
-rm(list = ls())#Çå¿Õ±äÁ¿
+rm(list = ls())#æ¸…ç©ºå˜é‡
 
 fname = file.choose()
 data_csv = read.csv(fname)
 data_integrate = data.frame()
 plot_origin <- ggplot()
-if (dir.exists(paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_Êı¾İ´¦Àí//",sep = "")) == F){#²éÑ¯Ä¿Â¼ÊÇ·ñ´æÔÚ
-  dir.create(paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_Êı¾İ´¦Àí//",sep = "")) #´´½¨ÎÄ¼ş¼Ğ
+if (dir.exists(paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_æ•°æ®å¤„ç†//",sep = "")) == F){#æŸ¥è¯¢ç›®å½•æ˜¯å¦å­˜åœ¨
+  dir.create(paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_æ•°æ®å¤„ç†//",sep = "")) #åˆ›å»ºæ–‡ä»¶å¤¹
 }
 
 for (i in 2:ncol(data_csv)){
   data_temp = data_csv[,c(1,i)]
   data_temp = na.omit(data_temp)
-  #±£´æEngauge DigitizerµÄµ¼³öÊı¾İ
+  #ä¿å­˜Engauge Digitizerçš„å¯¼å‡ºæ•°æ®
   write.csv(data_temp, row.names = F,
-            paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_Êı¾İ´¦Àí//",#Í¨Åä·ûÌáÈ¡ÎÄ¼şÃû
-                  colnames(data_temp)[2],"_",round(data_temp[nrow(data_temp),2]),"MPa",".csv",sep = "")) #paste×Ö·û´®Æ´½Ó
-  #¼ÆËãÃæ»ı»ı·Ö
-  f <- approxfun(x = data_temp[,1], y = data_temp[,2], method = "linear")#ÏßĞÔ²åÖµº¯Êı
-  data_integrate[i-1,1] = as.double(str_extract_all(colnames(data_temp)[2],"[0-9]+"))#Í¨Åä·ûÌáÈ¡×Ö·û´®ÖĞÊı×Ö
+            paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_æ•°æ®å¤„ç†//",#é€šé…ç¬¦æå–æ–‡ä»¶å
+                  colnames(data_temp)[2],"_",round(data_temp[nrow(data_temp),2]),"MPa",".csv",sep = "")) #pasteå­—ç¬¦ä¸²æ‹¼æ¥
+  #è®¡ç®—é¢ç§¯ç§¯åˆ†
+  f <- approxfun(x = data_temp[,1], y = data_temp[,2], method = "linear")#çº¿æ€§æ’å€¼å‡½æ•°
+  data_integrate[i-1,1] = as.double(str_extract_all(colnames(data_temp)[2],"[0-9]+"))#é€šé…ç¬¦æå–å­—ç¬¦ä¸²ä¸­æ•°å­—
   data_integrate[i-1,2] = data_temp[nrow(data_temp),2]
-  data_integrate[i-1,3] = integrate(f, data_temp[1,1], data_temp[nrow(data_temp),1])[1] #ÏßĞÔ²åÖµº¯ÊıÃæ»ı»ı·Ö
+  data_integrate[i-1,3] = integrate(f, data_temp[1,1], data_temp[nrow(data_temp),1])[1] #çº¿æ€§æ’å€¼å‡½æ•°é¢ç§¯ç§¯åˆ†
 }
-names(data_integrate) = c("Temperature","Stress","Integrate")#ÁĞÃû
+names(data_integrate) = c("Temperature","Stress","Integrate")#åˆ—å
 write.csv(data_integrate, row.names = F,
-          paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_Êı¾İ´¦Àí//",
-                                str_extract_all(fname,"[^(\\\\)]+.csv"),"_»ı·Ö½á¹û.csv",sep = ""))#Í¨Åä·ûÌáÈ¡ÎÄ¼şÃû
+          paste(str_extract_all(fname,"[^(\\\\)]+.csv"),"_æ•°æ®å¤„ç†//",
+                                str_extract_all(fname,"[^(\\\\)]+.csv"),"_ç§¯åˆ†ç»“æœ.csv",sep = ""))#é€šé…ç¬¦æå–æ–‡ä»¶å
 
 
 
 
-#*******************Ô­Ê¼À­ÉìÇúÏßÍ¼*********************
-#ggplot»­¶àÌõÇúÏß
+#*******************åŸå§‹æ‹‰ä¼¸æ›²çº¿å›¾*********************
+#ggplotç”»å¤šæ¡æ›²çº¿
 data_csv_melt <- melt(data_csv, id='x')
 data_csv_melt = na.omit(data_csv_melt)
 names(data_csv_melt) <- c('x', 'cycle', 'value')
@@ -45,9 +45,9 @@ ggplot() +
   theme_light()
 
 
-#**********************ÆøÅİÍ¼*******************************
-# ¸ù¾İ..Ìî³ä²»Í¬ÑÕÉ«£»¸ù¾İ..Ñ¡Ôñ²»Í¬µã´óĞ¡¡£
-# ÔÚÊı¾İÁ¿´ó»òÓĞÖØ¸´µãÊ±£¬¸ü¸Ä alpha ÖµÊÇ²»´íµÄÑ¡Ôñ
+#**********************æ°”æ³¡å›¾*******************************
+# æ ¹æ®..å¡«å……ä¸åŒé¢œè‰²ï¼›æ ¹æ®..é€‰æ‹©ä¸åŒç‚¹å¤§å°ã€‚
+# åœ¨æ•°æ®é‡å¤§æˆ–æœ‰é‡å¤ç‚¹æ—¶ï¼Œæ›´æ”¹ alpha å€¼æ˜¯ä¸é”™çš„é€‰æ‹©
 ggplot(data_integrate, aes(data_integrate[,1], data_integrate[,2])) +
   geom_point(aes(color = data_integrate[,3], size=data_integrate[,3]), shape=19, alpha=0.5)+
   theme(panel.background = element_rect(fill='transparent', color='black'),
@@ -72,7 +72,7 @@ ggplot(data_integrate, aes(data_integrate[,1], data_integrate[,2])) +
   
   
   #scale_x_log10()+
-  #expand_limits(x=c(1,1000),y = c(398,402)) #expand_limitsÉèÖÃ×ø±êÖá·¶Î§
+  #expand_limits(x=c(1,1000),y = c(398,402)) #expand_limitsè®¾ç½®åæ ‡è½´èŒƒå›´
 
 
 
