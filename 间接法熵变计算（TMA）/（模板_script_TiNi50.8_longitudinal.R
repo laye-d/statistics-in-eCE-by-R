@@ -5,14 +5,14 @@ source("process.R")
 
 
 #************************************
-#**********ÑùÆ·Êı¾İ
+#**********æ ·å“æ•°æ®
 #************************************
-L0 = 10000#Î¢Ã×
-S = 215 * 72#Î¢Ã×
-rho = 6500#Ç§¿ËÃ¿Á¢·½Ã×
-# F=seq(0.2, 1, 0.2)#Å£
-F = c(0.2, 0.4, 0.7, 1)#Å£
-#½á¹ûdeltaSµ¥Î»J/(K*kg)
+L0 = 10000#å¾®ç±³
+S = 215 * 72#å¾®ç±³
+rho = 6500#åƒå…‹æ¯ç«‹æ–¹ç±³
+# F=seq(0.2, 1, 0.2)#ç‰›
+F = c(0.2, 0.4, 0.7, 1)#ç‰›
+#ç»“æœdeltaSå•ä½J/(K*kg)
 num.noise.down.0.2_0.4N = 0.0000001
 num.noise.down.0.7_1N = 0.000001
 num.noise.up = 0.0000002
@@ -24,12 +24,12 @@ cut.T = 5
 
 
 
-#************¶ÁÈëcsvÎÄ¼ş***********
+#************è¯»å…¥csvæ–‡ä»¶***********
 data.raw.1 = read.csv("TiNi50.8_longitudinal_0.2N-0.4N_up0.2N,down0.2N.csv")
 data.raw.2 = read.csv("TiNi50.8_longitudinal_0.7N-1N_up0.2N,down0.2N.csv")
 
 
-#************Ô¤´¦ÀíµÃµ½Ã¿¸öÎÄ¼şÖĞ¸÷¶ÎÉı¡¢½µÎÂÇúÏßÊı¾İ£¨epsilon~T£©***********
+#************é¢„å¤„ç†å¾—åˆ°æ¯ä¸ªæ–‡ä»¶ä¸­å„æ®µå‡ã€é™æ¸©æ›²çº¿æ•°æ®ï¼ˆepsilon~Tï¼‰***********
 data.1 = process(data = data.raw.1, 
                  L0 = L0,
                  T.start = T.start,
@@ -44,10 +44,10 @@ data.1 = process(data = data.raw.1,
                  TF.additional = TRUE
                  )
 
-#Éı¡¢½µÎÂÇúÏßÊı¾İ
+#å‡ã€é™æ¸©æ›²çº¿æ•°æ®
 data.1.down = data.frame(data.1[1])
 data.1.up = data.frame(data.1[2])
-#¶îÍâµÄÉıÎÂ¶Î¡¢½µÎÂ¶ÎÇúÏßÊı¾İ
+#é¢å¤–çš„å‡æ¸©æ®µã€é™æ¸©æ®µæ›²çº¿æ•°æ®
 #data.1.extra = data.frame(data.1[3])
 
 
@@ -65,7 +65,7 @@ data.2 = process(data = data.raw.2,
                  TF.additional = TRUE
 )
 
-#Éı¡¢½µÎÂÇúÏßÊı¾İ
+#å‡ã€é™æ¸©æ›²çº¿æ•°æ®
 data.2.down = data.frame(data.2[1])
 data.2.up = data.frame(data.2[2])
 
@@ -74,7 +74,7 @@ data.2.up = data.frame(data.2[2])
 
 
 
-#************ºÏ²¢¸÷ÎÄ¼şÊı¾İ***********
+#************åˆå¹¶å„æ–‡ä»¶æ•°æ®***********
 data.down.all = cbind(data.1.down, data.2.down)
 data.up.all = cbind(data.1.up, data.2.up)
 
@@ -85,8 +85,8 @@ data.up.all = cbind(data.1.up, data.2.up)
 
 
 
-#************ÄâºÏÏàÍ¬Ó¦Á¦¸÷ÎÂ¶ÈµÄÓ¦±äÊı¾İ£¨epsilon~T£©£¬Çóµ¼µÃµ½ÏàÍ¬Ó¦Á¦¸÷ÎÂ¶ÈµÄÓ¦±äµ¼ÊıÊı¾İ£¨d(epsilon)/dT~T£©***********
-#×¢£º·µ»ØÎÄ¼şºó°ë²¿·Ö¸½´øÄâºÏÇúÏßÊı¾İ
+#************æ‹Ÿåˆç›¸åŒåº”åŠ›å„æ¸©åº¦çš„åº”å˜æ•°æ®ï¼ˆepsilon~Tï¼‰ï¼Œæ±‚å¯¼å¾—åˆ°ç›¸åŒåº”åŠ›å„æ¸©åº¦çš„åº”å˜å¯¼æ•°æ•°æ®ï¼ˆd(epsilon)/dT~Tï¼‰***********
+#æ³¨ï¼šè¿”å›æ–‡ä»¶ååŠéƒ¨åˆ†é™„å¸¦æ‹Ÿåˆæ›²çº¿æ•°æ®
 
 data.down.derive.0.2_0.4N = derive(data.down.all[,1:4],
                                    F = F[1:2],
@@ -108,10 +108,10 @@ data.down.derive.0.7_1N = derive(data.down.all[,5:8],
                                  num.poly = 5,
                                  TF.plot = TRUE)
 
-#ºÏ²¢¸÷»Ø¹éÇúÏßÊı¾İ
+#åˆå¹¶å„å›å½’æ›²çº¿æ•°æ®
 data.down.regression = cbind(data.down.derive.0.2_0.4N[,3:4], data.down.derive.0.7_1N[,3:4])
  
-#ºÏ²¢¸÷µ¼ÊıÊı¾İ
+#åˆå¹¶å„å¯¼æ•°æ•°æ®
 data.down.derive = cbind(data.down.derive.0.2_0.4N[,1:2], data.down.derive.0.7_1N[,1:2])
 
 
@@ -125,13 +125,13 @@ data.up.derive = derive(data.up.all,
                         num.poly = 5,
                         TF.plot = TRUE)                  
 
-#ÌáÈ¡»Ø¹éÇúÏßÊı¾İ
+#æå–å›å½’æ›²çº¿æ•°æ®
 data.up.regression = data.up.derive[,5:8]
-#ÌáÈ¡µ¼ÊıÊı¾İ
+#æå–å¯¼æ•°æ•°æ®
 data.up.derive = data.up.derive[,1:4]
 
 
-#************×ªÖÃµÃµ½ÏàÍ¬ÎÂ¶È¸÷Ó¦Á¦µÄÓ¦±äµ¼ÊıÊı¾İ£¨d(epsilon)/dT~(sigma)£©,ÄâºÏ²¢»ı·ÖµÃµ½¸÷ÎÂ¶ÈµÄ±äÓ¦Á¦ìØ±ä£¨S~T£©***********
+#************è½¬ç½®å¾—åˆ°ç›¸åŒæ¸©åº¦å„åº”åŠ›çš„åº”å˜å¯¼æ•°æ•°æ®ï¼ˆd(epsilon)/dT~(sigma)ï¼‰,æ‹Ÿåˆå¹¶ç§¯åˆ†å¾—åˆ°å„æ¸©åº¦çš„å˜åº”åŠ›ç†µå˜ï¼ˆS~Tï¼‰***********
 data.down.deltaS = Integrate(data.down.derive,
                              F  = F,
                              L0 = L0,
@@ -156,8 +156,8 @@ data.up.deltaS = Integrate(data.up.derive,
                            interval.plot = 2000,
                            TF.plot = TRUE)
 
-#½á¹û×÷Í¼
-#ÓÉÓÚÁ½±ßµÄÎÂ¶ÈÇóµ¼²»×¼£¬ËùÒÔ´Ë´¦Çó³öµÄdeltaSÒ²²»×¼£¬¿ÉºöÂÔ
+#ç»“æœä½œå›¾
+#ç”±äºä¸¤è¾¹çš„æ¸©åº¦æ±‚å¯¼ä¸å‡†ï¼Œæ‰€ä»¥æ­¤å¤„æ±‚å‡ºçš„deltaSä¹Ÿä¸å‡†ï¼Œå¯å¿½ç•¥
 plot(deltaS ~ Temperature, data = data.down.deltaS, type = "l",
      main = c("Down, From 0N to 1N"))######c()) 
 axis(1, seq(-150,200,5), seq(-150,200,5))
@@ -168,7 +168,7 @@ axis(1, seq(-150,200,5), seq(-150,200,5))
 
 ##############
 F = data.frame(F)
-#ÄâºÏ½á¹û×÷Í¼
+#æ‹Ÿåˆç»“æœä½œå›¾
 for (i in 1:nrow(F)){
   plot(data.down.all[,2*i] ~ data.down.all[,2*i-1], type = "l",
        main = c("F = ",F[i,1],"N"))
@@ -184,7 +184,7 @@ for (i in 1:nrow(F)){
 }
 
 
-#Çóµ¼½á¹û×÷Í¼
+#æ±‚å¯¼ç»“æœä½œå›¾
 for (i in 1:nrow(F)){
   plot(data.down.derive[,i] ~ seq(T.low + cut.T, T.high - cut.T, 0.01), type = "l",
        main = c("F = ",F[i,1],"N"))######c()
@@ -198,7 +198,7 @@ for (i in 1:nrow(F)){
 
 
 
-#µ¼ÊıÊı¾İ£¨down,µÈ¼ä¸ôÈ¡100ÎÂ¶Èµã£©
+#å¯¼æ•°æ•°æ®ï¼ˆdown,ç­‰é—´éš”å–100æ¸©åº¦ç‚¹ï¼‰
 library(ggplotgui)
 ggplot_shiny(data.frame(t(rbind(t(F), data.down.derive)
                           [seq(1,length(seq(T.low + cut.T, T.high - cut.T, 0.01)),floor(length(seq(-25,95, 0.01))/100)),])))
