@@ -1,9 +1,9 @@
-#************Êı¾İÔ¤´¦Àíº¯Êı***********
-#µÃµ½¸÷¶ÎÉı¡¢½µÎÂÇúÏßÊı¾İ£¨epsilon~T£©
-#Èë²Î£º
-#Ô­Ê¼Êı¾İ¡¢ÑùÆ·Ô­Ê¼³¤¶È¡¢
-#Ô­ÇúÏßµÄµÍÎÂÎÂ¶È¡¢¸ßÎÂÎÂ¶È¡¢Ã¿¶ÎÇúÏßÁ½¶ËÈ¥µôµÄÒ»¶ÎÎÂ¶È·¶Î§¡¢²âÊÔ¹ı³Ì±äÎÂËÙ¶È¡¢ÉıÎÂ¹ı³Ì±äÎÂËÙ¶È¡¢
-#½µÎÂ¹ı³Ì±äÎÂËÙ¶È¡¢Ñ­»·´ÎÊı¡¢ÊÇ·ñ¶ÔÔ­ÇúÏß¼°·Ö¸î³É¶ÎµÄÔ­ÇúÏß×÷Í¼¡¢ÊÇ·ñ´¦ÀíÉıÎÂºÍ½µÎÂµÄÁ½¶ÎÇúÏß¡¢
+#************æ•°æ®é¢„å¤„ç†å‡½æ•°***********
+#å¾—åˆ°å„æ®µå‡ã€é™æ¸©æ›²çº¿æ•°æ®ï¼ˆepsilon~Tï¼‰
+#å…¥å‚ï¼š
+#åŸå§‹æ•°æ®ã€æ ·å“åŸå§‹é•¿åº¦ã€
+#åŸæ›²çº¿çš„ä½æ¸©æ¸©åº¦ã€é«˜æ¸©æ¸©åº¦ã€æ¯æ®µæ›²çº¿ä¸¤ç«¯å»æ‰çš„ä¸€æ®µæ¸©åº¦èŒƒå›´ã€æµ‹è¯•è¿‡ç¨‹å˜æ¸©é€Ÿåº¦ã€å‡æ¸©è¿‡ç¨‹å˜æ¸©é€Ÿåº¦ã€
+#é™æ¸©è¿‡ç¨‹å˜æ¸©é€Ÿåº¦ã€å¾ªç¯æ¬¡æ•°ã€æ˜¯å¦å¯¹åŸæ›²çº¿åŠåˆ†å‰²æˆæ®µçš„åŸæ›²çº¿ä½œå›¾ã€æ˜¯å¦å¤„ç†å‡æ¸©å’Œé™æ¸©çš„ä¸¤æ®µæ›²çº¿ã€
 process = function(data, 
                    L0 = 1000,
                    T.start = 25,
@@ -18,16 +18,16 @@ process = function(data,
                    TF.additional = TRUE
                    )
 {
-  #************Êı¾İÔ¤´¦Àí***********
+  #************æ•°æ®é¢„å¤„ç†***********
   data = data[-1, ]
   data = data[-nrow(data), ]
   data$Ts = as.numeric(as.character(data$Ts))
   data$Length = as.numeric(as.character(data$Length))/L0
   data = na.omit(data)####
 
-  #************¼ÆËãÃ¿¶ÎÇúÏßµÄË÷Òı***********
-  #plot.idx´æ´¢Ë÷Òı£¬µÚ1¡¢2¡¢3¡¢4ÁĞÎªÃ¿¸öÑ­»·µÄ½µÎÂÆğµã¡¢ÖÕµã¡¢ÉıÎÂÆğµã¡¢ÖÕµã
-  #additional.idx´æ´¢¶îÍâµÄÉıÎÂ¶ÎºÍ½µÎÂ¶ÎË÷Òı£¬µÚ1¡¢2ÁĞÎªÁ½¶ÎµÄÆğµã¡¢ÖÕµã
+  #************è®¡ç®—æ¯æ®µæ›²çº¿çš„ç´¢å¼•***********
+  #plot.idxå­˜å‚¨ç´¢å¼•ï¼Œç¬¬1ã€2ã€3ã€4åˆ—ä¸ºæ¯ä¸ªå¾ªç¯çš„é™æ¸©èµ·ç‚¹ã€ç»ˆç‚¹ã€å‡æ¸©èµ·ç‚¹ã€ç»ˆç‚¹
+  #additional.idxå­˜å‚¨é¢å¤–çš„å‡æ¸©æ®µå’Œé™æ¸©æ®µç´¢å¼•ï¼Œç¬¬1ã€2åˆ—ä¸ºä¸¤æ®µçš„èµ·ç‚¹ã€ç»ˆç‚¹
   plot.idx = data.frame()####
   plot.idx[1,1] = (T.high - T.start) * 60 / v.up + cut.T * 60 
   plot.idx[1,2] = plot.idx[1,1] + (T.high - T.low - cut.T * 2) *60
@@ -44,7 +44,7 @@ process = function(data,
   additional.idx[2,1] = circulation * (T.high - T.low) * 120 + (T.high - T.start) * 60 / v.up + cut.T * 60 / v.down
   additional.idx[2,2] = additional.idx[2,1] + (T.high - T.start - cut.T * 2) * 60 / v.down
   
-  #************Ô­ÇúÏß¼°·Ö¸î³É¶ÎµÄÔ­ÇúÏß×÷Í¼***********
+  #************åŸæ›²çº¿åŠåˆ†å‰²æˆæ®µçš„åŸæ›²çº¿ä½œå›¾***********
   if(TF.plot == TRUE){
     plot(Length ~ Ts, data = data, type = "l")
     for (i in 1:circulation) {
@@ -60,8 +60,8 @@ process = function(data,
     }
   }
   
-  #************·µ»Ø½µÎÂÊı¾İºÍÉıÎÂÊı¾İ***********
-  data.down = list()###Ö±½Óframe?
+  #************è¿”å›é™æ¸©æ•°æ®å’Œå‡æ¸©æ•°æ®***********
+  data.down = list()###ç›´æ¥frame?
   data.up = list()
   # if(return == "down"){
   #   for (i in 1:circulation) {
@@ -93,11 +93,11 @@ process = function(data,
 
 
 
-#************Çóµ¼º¯Êı***********
-#ÄâºÏÏàÍ¬Ó¦Á¦¸÷ÎÂ¶ÈµÄÓ¦±äÊı¾İ£¨epsilon~T£©£¬Çóµ¼µÃµ½ÏàÍ¬Ó¦Á¦¸÷ÎÂ¶ÈµÄÓ¦±äµ¼ÊıÊı¾İ£¨d(epsilon)/dT~T£©
-#Èë²Î£º
-#²»Í¬Ó¦Á¦ÏÂTsºÍ¶ÔÓ¦LengthÊı¾İ¡¢¼ÓÁ¦·¶Î§¡¢ºá½ØÃæÃæ»ı¡¢Êı¾İ´¦Àí½á¹ûÊ¹ÓÃµÄÎÂ¶È·¶Î§¡¢regressorÀàĞÍ¡¢
-#¶àÏîÊ½ÄâºÏµÄ´ÎÊı¡¢ÊÇ·ñ¶ÔÄâºÏÇúÏßºÍµ¼ÊıÇúÏß×÷Í¼
+#************æ±‚å¯¼å‡½æ•°***********
+#æ‹Ÿåˆç›¸åŒåº”åŠ›å„æ¸©åº¦çš„åº”å˜æ•°æ®ï¼ˆepsilon~Tï¼‰ï¼Œæ±‚å¯¼å¾—åˆ°ç›¸åŒåº”åŠ›å„æ¸©åº¦çš„åº”å˜å¯¼æ•°æ•°æ®ï¼ˆd(epsilon)/dT~Tï¼‰
+#å…¥å‚ï¼š
+#ä¸åŒåº”åŠ›ä¸‹Tså’Œå¯¹åº”Lengthæ•°æ®ã€åŠ åŠ›èŒƒå›´ã€æ¨ªæˆªé¢é¢ç§¯ã€æ•°æ®å¤„ç†ç»“æœä½¿ç”¨çš„æ¸©åº¦èŒƒå›´ã€regressorç±»å‹ã€
+#å¤šé¡¹å¼æ‹Ÿåˆçš„æ¬¡æ•°ã€æ˜¯å¦å¯¹æ‹Ÿåˆæ›²çº¿å’Œå¯¼æ•°æ›²çº¿ä½œå›¾
 derive = function(data,
                   F  = seq(0.1, 1, 0.1),
                   S = 100 * 300,
@@ -109,30 +109,30 @@ derive = function(data,
 ){
   library(pspline)
   F = data.frame(F = F)
-  Temp = data.frame(Ts = Temp)#Ğë±£Ö¤TempµÄÁĞÃûÓëÄâºÏmodelµÄTsµÄÁĞÃûÏàÍ¬£¡£¬·ñÔò¸ÃgprËã·¨µÈ²»ÄÜpredict»ñµÃyÖµ
-  stress = data.frame(F / S * 10^12)#µ¥Î»Pa
+  Temp = data.frame(Ts = Temp)#é¡»ä¿è¯Tempçš„åˆ—åä¸æ‹Ÿåˆmodelçš„Tsçš„åˆ—åç›¸åŒï¼ï¼Œå¦åˆ™è¯¥gprç®—æ³•ç­‰ä¸èƒ½predictè·å¾—yå€¼
+  stress = data.frame(F / S * 10^12)#å•ä½Pa
   data.derive = matrix(nrow = nrow(Temp), ncol = nrow(stress), 
-                       #ĞëÎªTemp[,1]£¬²»¿ÉTemp£¬·ñÔò×Ö·ûÎ¬ÊıÎª1Î¬
+                       #é¡»ä¸ºTemp[,1]ï¼Œä¸å¯Tempï¼Œå¦åˆ™å­—ç¬¦ç»´æ•°ä¸º1ç»´
                        dimnames = list(as.character(Temp[,1]),as.character(stress[,1])))
   data.regression = matrix(nrow = nrow(Temp), ncol = nrow(stress), 
-                       #ĞëÎªTemp[,1]£¬²»¿ÉTemp£¬·ñÔò×Ö·ûÎ¬ÊıÎª1Î¬
+                       #é¡»ä¸ºTemp[,1]ï¼Œä¸å¯Tempï¼Œå¦åˆ™å­—ç¬¦ç»´æ•°ä¸º1ç»´
                        dimnames = list(as.character(Temp[,1]),as.character(stress[,1])))
   
   if(regressor == "poly"){
     for (i in 1:nrow(stress)){
-      #ÁÙÊ±Êı¾İ¿ò£¬ÃüÃûÁĞÃûÒÔÄâºÏ????
+      #ä¸´æ—¶æ•°æ®æ¡†ï¼Œå‘½ååˆ—åä»¥æ‹Ÿåˆ????
       data.temp = data.frame(Ts = data[,2*i-1], Length = data[,2*i])
       #data = data.down.all
       #data.temp = data.frame(Ts = data[,1], Length = data[,2])
       model = lm(Length ~ poly(Ts, num.poly, raw = T), data = data.temp)
       L.predict = data.frame(Length = predict(model, Temp))
-      # ´Ë´¦±ØĞëĞÂ½¨Ò»¸öÊı¾İ¿òdf£¿£¿£¿£¿£¬·ñÔòsm.spline()±¨´í
+      # æ­¤å¤„å¿…é¡»æ–°å»ºä¸€ä¸ªæ•°æ®æ¡†dfï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Œå¦åˆ™sm.spline()æŠ¥é”™
       df = data.frame(Temp, L.predict)
       data.derive[,i] = predict(sm.spline(df$Ts, df$Length), df$Ts, 1)
       #data.derive[,i] = predict(sm.spline(Temp, L.predict), Temp, 1)
       if(TF.plot == TRUE){
         plot(data[,2*i] ~ data[,2*i-1], type = "l")
-        lines(data[,2*i-1], predict(model), col = 2)#»ò£ºpredict(model,data.1.1)
+        lines(data[,2*i-1], predict(model), col = 2)#æˆ–ï¼špredict(model,data.1.1)
         plot(data.derive[,i] ~ as.matrix(Temp), type = "l")
       }
     }
@@ -142,33 +142,33 @@ derive = function(data,
     library(DiceKriging)
     for (i in 1:nrow(stress)){
       data.temp = data.frame(Ts = data[,2*i-1], Length = data[,2*i])
-      data.temp = data.temp[seq(1,nrow(data.temp),8),]#¼ä¸ôÈ¡µã
-      noise=rep(num.noise,nrow(data.temp))#noiseĞ¡£¬ÄâºÏ¸ü½Ó½üÔ­ÇúÏß
+      data.temp = data.temp[seq(1,nrow(data.temp),8),]#é—´éš”å–ç‚¹
+      noise=rep(num.noise,nrow(data.temp))#noiseå°ï¼Œæ‹Ÿåˆæ›´æ¥è¿‘åŸæ›²çº¿
       Ts = data.frame(Ts = data.temp$Ts)
       Length = data.frame(data.temp$Length)
       model <- km(formula<-~.,design=Ts, response=Length 
               ,noise.var = noise
-              ,covtype = "exp",coef.var=0.03,optim.method="BFGS",multistart = 1, gr = TRUE###type= gauss£¬Æ½»¬£¬µ«0.9N1NÇúÏßÄâºÏ»á³öÏÖÎÊÌâ£¿£¿
+              ,covtype = "exp",coef.var=0.03,optim.method="BFGS",multistart = 1, gr = TRUE###type= gaussï¼Œå¹³æ»‘ï¼Œä½†0.9N1Næ›²çº¿æ‹Ÿåˆä¼šå‡ºç°é—®é¢˜ï¼Ÿï¼Ÿ
       )
-      #Ô¤²âTemp¶ÔÓ¦µÄyÖµ£¬Ğë±£Ö¤TempµÄÁĞÃûÓëÄâºÏmodelµÄTsµÄÁĞÃûÏàÍ¬£¡£¬·ñÔò¸ÃgprËã·¨²»ÄÜpredict»ñµÃyÖµ
+      #é¢„æµ‹Tempå¯¹åº”çš„yå€¼ï¼Œé¡»ä¿è¯Tempçš„åˆ—åä¸æ‹Ÿåˆmodelçš„Tsçš„åˆ—åç›¸åŒï¼ï¼Œå¦åˆ™è¯¥gprç®—æ³•ä¸èƒ½predictè·å¾—yå€¼
       L.predict = data.frame(Length = predict(model, Temp, "UK")$mean)
       df = data.frame(Temp, L.predict)
       data.derive[,i] = predict(sm.spline(df$Ts, df$Length), df$Ts, 1)
       data.regression[,i] = L.predict$Length
       if(TF.plot == TRUE){
         plot(Length ~ Ts, data.temp, type = "l")
-        points(L.predict$Length ~ Temp$Ts, col = 2, type = "l") #Ğë¼Ó$£¬·ñÔòÎªlist
+        points(L.predict$Length ~ Temp$Ts, col = 2, type = "l") #é¡»åŠ $ï¼Œå¦åˆ™ä¸ºlist
         plot(data.derive[,i] ~ as.matrix(Temp), type = "l")
       }
     }
   data.derive = cbind(data.derive, data.regression)
   }
   
-  #²¿·ÖÇúÏßtune±¨´í£º ¡®cross¡¯ must not exceed sampling size! 
+  #éƒ¨åˆ†æ›²çº¿tuneæŠ¥é”™ï¼š â€˜crossâ€™ must not exceed sampling size! 
   if(regressor == "svr.radial"){
     library(e1071)
     for (i in 1:nrow(stress)){
-      #Ô­Êı¾İºÄÊ±¹ı³¤£¬ËùÒÔµÈ¼ä¸ô³éÈ¡Êı¾İµã
+      #åŸæ•°æ®è€—æ—¶è¿‡é•¿ï¼Œæ‰€ä»¥ç­‰é—´éš”æŠ½å–æ•°æ®ç‚¹
       data = data[seq(1,nrow(data),10),]
       data.temp = data.frame(Ts = data[,2*i-1], Length = data[,2*i])
       tuneResult = tune(svm, Length ~ Ts, data = data.temp,kernel = "radial", 
@@ -190,9 +190,9 @@ derive = function(data,
       }
     }
   }
-  #Èô×ª³ÌĞò¿òÁĞÃûÓĞÎÊÌâ£¿£¿£¿
+  #è‹¥è½¬ç¨‹åºæ¡†åˆ—åæœ‰é—®é¢˜ï¼Ÿï¼Ÿï¼Ÿ
   #data.derive = data.frame(data.derive)
-  #characterÀàĞÍÊı¾İ£¿£¿£¿
+  #characterç±»å‹æ•°æ®ï¼Ÿï¼Ÿï¼Ÿ
   return(data.derive)
 }
 
@@ -202,11 +202,11 @@ derive = function(data,
 
 
 
-#************»ı·Öº¯Êı***********
-#×ªÖÃµÃµ½ÏàÍ¬ÎÂ¶È¸÷Ó¦Á¦µÄÓ¦±äµ¼ÊıÊı¾İ£¨d(epsilon)/dT~(sigma)£©,ÄâºÏ²¢»ı·ÖµÃµ½¸÷ÎÂ¶ÈµÄ±äÓ¦Á¦ìØ±ä£¨S~T£©
-#Èë²Î£º
-#²»Í¬Ó¦Á¦ÏÂÎÂ¶È¶ÔÓ¦µÄµ¼ÊıÊı¾İ¡¢¼ÓÁ¦·¶Î§¡¢Ô­Ê¼³¤¶È¡¢ºá½ØÃæÃæ»ı¡¢µ¼ÊıÊı¾İÊ¹ÓÃµÄÎÂ¶È·¶Î§¡¢regressorÀàĞÍ¡¢
-#¶àÏîÊ½ÄâºÏµÄ´ÎÊı¡¢Ã¿¼ä¸ô¶àÉÙµã¶Ôµ¼ÊıÄâºÏÇúÏß×÷Í¼¡¢ÊÇ·ñ¶Ôµ¼ÊıÄâºÏÇúÏßºÍdeltaSÇúÏß×÷Í¼
+#************ç§¯åˆ†å‡½æ•°***********
+#è½¬ç½®å¾—åˆ°ç›¸åŒæ¸©åº¦å„åº”åŠ›çš„åº”å˜å¯¼æ•°æ•°æ®ï¼ˆd(epsilon)/dT~(sigma)ï¼‰,æ‹Ÿåˆå¹¶ç§¯åˆ†å¾—åˆ°å„æ¸©åº¦çš„å˜åº”åŠ›ç†µå˜ï¼ˆS~Tï¼‰
+#å…¥å‚ï¼š
+#ä¸åŒåº”åŠ›ä¸‹æ¸©åº¦å¯¹åº”çš„å¯¼æ•°æ•°æ®ã€åŠ åŠ›èŒƒå›´ã€åŸå§‹é•¿åº¦ã€æ¨ªæˆªé¢é¢ç§¯ã€å¯¼æ•°æ•°æ®ä½¿ç”¨çš„æ¸©åº¦èŒƒå›´ã€regressorç±»å‹ã€
+#å¤šé¡¹å¼æ‹Ÿåˆçš„æ¬¡æ•°ã€æ¯é—´éš”å¤šå°‘ç‚¹å¯¹å¯¼æ•°æ‹Ÿåˆæ›²çº¿ä½œå›¾ã€æ˜¯å¦å¯¹å¯¼æ•°æ‹Ÿåˆæ›²çº¿å’ŒdeltaSæ›²çº¿ä½œå›¾
 Integrate = function(data,
                      F  = seq(0.1, 1, 0.1),
                      L0 = 1000,
@@ -220,7 +220,7 @@ Integrate = function(data,
                   ){
   F = data.frame(F = F)
   Temp = data.frame(Ts = Temp)
-  stress = data.frame(stress = F[,1] / S * 10^12)#µ¥Î»Pa
+  stress = data.frame(stress = F[,1] / S * 10^12)#å•ä½Pa
   V0 = L0 * S /10^18
   #data = t(data)
   data.deltaS = matrix(nrow = nrow(Temp), ncol = 2)
@@ -228,9 +228,9 @@ Integrate = function(data,
   for (i in 1:nrow(Temp)) {
     data.temp = data.frame(stress = stress[,1], derive = data[i,])
     model = lm(derive ~ poly(stress, num.poly, raw = T), data = data.temp)
-    ###ÄâºÏµÄ¶àÏîÊ½º¯Êı·½³ÌÏµÊı
+    ###æ‹Ÿåˆçš„å¤šé¡¹å¼å‡½æ•°æ–¹ç¨‹ç³»æ•°
     coef=coef(model)
-    ###ÄâºÏµÄ¶àÏîÊ½º¯Êı·½³Ì
+    ###æ‹Ÿåˆçš„å¤šé¡¹å¼å‡½æ•°æ–¹ç¨‹
     func = function(x){
       func = 0
       for (j in 1:num.poly+1) {
@@ -238,7 +238,7 @@ Integrate = function(data,
       }
       return(func + coef[1])
     }
-    #ÈôÈçÏÂ»á¶ªÊ§coef[1]£¿£¿£¿£¿£¿£¿£¿£¿£¿
+    #è‹¥å¦‚ä¸‹ä¼šä¸¢å¤±coef[1]ï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿï¼Ÿ
     # func = function(x){
     #   func = 0
     #   for (j in 1:num.poly+1) {
@@ -251,7 +251,7 @@ Integrate = function(data,
       if (i == i.plot[k]){
         plot(derive ~ stress, data = data.temp)
         #print(coef)
-        #Á½Í¼ÖØµş
+        #ä¸¤å›¾é‡å 
         par(new=TRUE)
         plot(func, from = stress[1,], to = stress[nrow(stress),], col = "2")
         k = k + 1
@@ -277,7 +277,7 @@ Integrate = function(data,
 
 # 
 # 
-# #************¶àÏîÊ½ÄâºÏ***********
+# #************å¤šé¡¹å¼æ‹Ÿåˆ***********
 # 
 # regressor.poly = function(data, num.poly){
 #   model = lm(Length ~ poly(Ts, num.poly, raw = T), data = data)
@@ -341,11 +341,11 @@ Integrate = function(data,
 # 
 # 
 # 
-# #************Gaussian Process Regression£¨Ô­Êı¾İºÄÊ±¹ı³¤£¬ËùÒÔµÈ¼ä¸ô³éÈ¡Êı¾İµã£©***********
+# #************Gaussian Process Regressionï¼ˆåŸæ•°æ®è€—æ—¶è¿‡é•¿ï¼Œæ‰€ä»¥ç­‰é—´éš”æŠ½å–æ•°æ®ç‚¹ï¼‰***********
 # regressor.gpr = function(){
 #   library(DiceKriging)
 #   data.1.1 = data[plot.idx[1,1]:(plot.idx[1,2]),]
-#   #Ã¿¼ä¸ô8¸öµã³éÈ¡Ò»¸öÊı¾İµã
+#   #æ¯é—´éš”8ä¸ªç‚¹æŠ½å–ä¸€ä¸ªæ•°æ®ç‚¹
 #   data.1.1 = data.1.1[seq(1,nrow(data.1.1),8),]
 #   noise=rep(2,nrow(data.1.1))
 #   Ts = data.frame(data.1.1$Ts)
