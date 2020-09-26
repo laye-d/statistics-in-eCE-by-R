@@ -1,22 +1,22 @@
-#python åˆ é™¤csvæ–‡ä»¶å¤šä½™å¼€å¤´(ä»¥ä¾¿Rå¤„ç†).py
-rm(list = ls())#æ¸…ç©ºå˜é‡
-library(stringr)#é€šé…ç¬¦æå–å­—ç¬¦ä¸²å†…å®¹
+#python É¾³ıcsvÎÄ¼ş¶àÓà¿ªÍ·(ÒÔ±ãR´¦Àí).py
+rm(list = ls())#Çå¿Õ±äÁ¿
+library(stringr)#Í¨Åä·ûÌáÈ¡×Ö·û´®ÄÚÈİ
 
 
-###################################################å‚æ•°
-num_cycle = 3#å¾ªç¯æ•°
+###################################################²ÎÊı
+num_cycle = 25#Ñ­»·Êı
 ##################################################
 
 
 
 
-#***************é™æ¸©èµ·å§‹ç‚¹æœç´¢å‡½æ•°************
+#***************½µÎÂÆğÊ¼µãËÑË÷º¯Êı************
 find.index.start = function(data, index_current) {
   for (i in index_current:nrow(data)){
     if(i+25>nrow(data)){
-      stop("é”™è¯¯ï¼šæœç´¢ç»“æŸï¼Œæœªæœç´¢åˆ°é™æ¸©èµ·å§‹ç‚¹!")
+      stop("´íÎó£ºËÑË÷½áÊø£¬Î´ËÑË÷µ½½µÎÂÆğÊ¼µã!")
     }
-    ######é€‰å‡ºç‚¹çš„å¤§è‡´ä½ç½®iï¼šç‚¹å25ä¸ªç‚¹åŸºæœ¬éƒ½é€’å‡ï¼Œä¸”25ä¸ªç‚¹æ¸©å·®å¤§äº2ï¼Œä¸”5ä¸ªç‚¹æ¸©å·®å¤§äº0.3
+    ######Ñ¡³öµãµÄ´óÖÂÎ»ÖÃi£ºµãºó25¸öµã»ù±¾¶¼µİ¼õ£¬ÇÒ25¸öµãÎÂ²î´óÓÚ2£¬ÇÒ5¸öµãÎÂ²î´óÓÚ0.3
     if(sum(data[(i+1):(i+25),2] - data[(i):(i+24),2] < 0) > 20 &&
        data[(i+25),2] - data[(i),2] < - 2 &&
        data[(i+5),2] - data[(i),2] < -0.3
@@ -25,25 +25,25 @@ find.index.start = function(data, index_current) {
     }
   }
   
-  ######èµ·å§‹ç‚¹æœç´¢åˆ¤æ–­æ¡ä»¶é€‰å‡ºiåï¼Œé€‰æ‹©ç‚¹å‰20ä¸ªç‚¹ã€ç‚¹å10ä¸ªç‚¹,è®¡ç®—ç‚¹å‰åä¸¤æ‹Ÿåˆçº¿çš„è§’åº¦å·®æœ€å¤§çš„ç‚¹ä½œä¸ºå¼€å§‹ç‚¹
+  ######ÆğÊ¼µãËÑË÷ÅĞ¶ÏÌõ¼şÑ¡³öiºó£¬Ñ¡ÔñµãÇ°20¸öµã¡¢µãºó10¸öµã,¼ÆËãµãÇ°ºóÁ½ÄâºÏÏßµÄ½Ç¶È²î×î´óµÄµã×÷Îª¿ªÊ¼µã
   data_angleDifference = data.frame()
   for (ii in (i-20):(i+10) ){
     coef1 = data.matrix(c(1,lm(data[(ii-6):(ii-2),2]~data[(ii-6):(ii-2),1])$coefficients[2]))
     coef2 = data.matrix(c(1,lm(data[(ii+2):(ii+6),2]~data[(ii+2):(ii+6),1])$coefficients[2]))
-    #è®¡ç®—å‰åä¸¤æ®µæ‹Ÿåˆç›´çº¿çš„è§’åº¦å·®
+    #¼ÆËãÇ°ºóÁ½¶ÎÄâºÏÖ±ÏßµÄ½Ç¶È²î
     data_angleDifference[ii-i+21,1] = acos(abs(sum(coef1 * coef2) / sqrt(sum(coef1^2) * sum(coef2^2))))*180/pi
   }
   i2 = which(data_angleDifference==max(data_angleDifference))
-  i = i2 +i-21#é€‰æ‹©è§’åº¦å·®æœ€å¤§çš„ç‚¹ï¼Œè¿”å›ä¹‹
+  i = i2 +i-21#Ñ¡Ôñ½Ç¶È²î×î´óµÄµã£¬·µ»ØÖ®
   
-  #ä½œå›¾1
-  par(mfrow = c(2,1))#å¤šä¸ªå›¾
+  #×÷Í¼1
+  par(mfrow = c(2,1))#¶à¸öÍ¼
   plot(data[(i-50):(i+50),1],data[(i-50):(i+50),2])
   points(data[i,1],data[i,2],col="red")
   plot(data[(i-i2+21-20):(i-i2+21+10),1],data_angleDifference[,1])
   points(data[i,1],data_angleDifference[i2 ,1],col="red")
   
-  #ä½œå›¾2
+  #×÷Í¼2
   par(mfrow = c(1,1))
   plot(x = data[(i-1000):(i+1000),1], y = data[(i-1000):(i+1000),2], type = "l")
   points(x = data[i,1], y = data[i,2], col="red",pch = 6,lwd = 3)
@@ -51,35 +51,31 @@ find.index.start = function(data, index_current) {
   return(i)
 }
 
-#***************é™æ¸©ç»“æŸç‚¹æœç´¢å‡½æ•°************
+#***************½µÎÂ½áÊøµãËÑË÷º¯Êı************
 find.index.end = function(data, index_current) {
   for (i in (index_current+1):nrow(data)){
     if(i+10>nrow(data)){
-      stop("é”™è¯¯ï¼šæœç´¢ç»“æŸï¼Œæœªæœç´¢åˆ°é™æ¸©ç»“æŸç‚¹!")
+      stop("´íÎó£ºËÑË÷½áÊø£¬Î´ËÑË÷µ½½µÎÂ½áÊøµã!")
     }
     
-    #å¯»æ‰¾ç‚¹ï¼šä»index_currentåˆ°æ­¤å¤„çš„ååŠéƒ¨åˆ†ç‚¹è‡³å°‘30%éƒ½é€’å‡ï¼ˆé¿å…é€‰ç‚¹è¿œç¦»ç»çƒ­æ¸©å˜ç‚¹ï¼‰ï¼Œä¸”å…¶å10ä¸ªç‚¹åŸºæœ¬éƒ½å¤§äºè¯¥ç‚¹
-    if(sum(data[(floor(0.5*(index_current+i))+1):(i),2] - data[floor(0.5*(index_current+i)):(i-1),2] < 0) >= (0.3*(i-index_current)) &&
-       sum(data[(i+1):(i+10),2] - data[(i):(i+9),2] > 0) >= 9 
-    ){
+    #Ñ°ÕÒµã£º´Óindex_currentµ½´Ë´¦µÄºó°ë²¿·ÖµãÖÁÉÙ30%¶¼µİ¼õ£¨±ÜÃâÑ¡µãÔ¶Àë¾øÈÈÎÂ±äµã£©£¬ÇÒÆäºó10¸öµã»ù±¾¶¼´óÓÚ¸Ãµã
+    if(sum(data[(floor(0.5*(index_current+i))+1):(i),2] - data[floor(0.5*(index_current+i)):(i-1),2] < 0) >= (0.3*(i-index_current)) && sum(data[(i+1):(i+10),2] - data[(i):(i+9),2] > 0) >= 9){
       break
     }
   }
-
-  points(x = data[i,1], y = data[i,2], col="red",pch = 2,lwd = 3)
-
+  points(x = data[i,1], y = data[i,2], col="red", pch = 2, lwd = 3)
   return(i)#which(data[,2] == min(data[(i+1):(i+25),2]))
 }
 
 fname = file.choose()
-data = read.table(fname, )#æ‰“å¼€ç©ºæ ¼åˆ†éš”çš„æ–‡æœ¬æ–‡ä»¶
-names(data)[1:2] <- c("Time","T")#ä¸ºç‰¹å®šåˆ—å‘½å
+data = read.table(fname, )#´ò¿ª¿Õ¸ñ·Ö¸ôµÄÎÄ±¾ÎÄ¼ş
+names(data)[1:2] <- c("Time","T")#ÎªÌØ¶¨ÁĞÃüÃû
 
 data_index = data.frame()
 data_deltaT = data.frame()
 i_current = 1
 
-#*********************æœç´¢é™æ¸©æ®µæ›²çº¿çš„èµ·å§‹ã€ç»“æŸç‚¹ç´¢å¼•***********************
+#*********************ËÑË÷½µÎÂ¶ÎÇúÏßµÄÆğÊ¼¡¢½áÊøµãË÷Òı***********************
 for(i in 1:num_cycle){
   i_current = data_index[i,1] = find.index.start(data,i_current)
   i_current = data_index[i,2] = find.index.end(data,i_current)
@@ -89,12 +85,12 @@ for(i in 1:num_cycle){
 names(data_deltaT) = c("Cycle", "-deltaT")
 
 
-#*******************ä¿å­˜csvæ–‡ä»¶*********************
+#*******************±£´æcsvÎÄ¼ş*********************
 temp_dirname = data.frame(str_extract_all(fname,"[^(\\\\)]+")[1])
-if (dir.exists("æ¸©å˜æ•°æ®å¤„ç†//") == F){#æŸ¥è¯¢ç›®å½•æ˜¯å¦å­˜åœ¨
-  dir.create("æ¸©å˜æ•°æ®å¤„ç†//") #åˆ›å»ºæ–‡ä»¶å¤¹
+if (dir.exists("ÎÂ±äÊı¾İ´¦Àí//") == F){#²éÑ¯Ä¿Â¼ÊÇ·ñ´æÔÚ
+  dir.create("ÎÂ±äÊı¾İ´¦Àí//") #´´½¨ÎÄ¼ş¼Ğ
 }
 write.csv(data_deltaT, row.names = F,
-          paste("æ¸©å˜æ•°æ®å¤„ç†//",temp_dirname[nrow(temp_dirname),1],"_æ¸©å˜è®¡ç®—ç»“æœ.csv",sep = ""))#é€šé…ç¬¦æå–æ–‡ä»¶å
+          paste("ÎÂ±äÊı¾İ´¦Àí//",temp_dirname[nrow(temp_dirname),1],"_ÎÂ±ä¼ÆËã½á¹û.csv",sep = ""))#Í¨Åä·ûÌáÈ¡ÎÄ¼şÃû
 
 
