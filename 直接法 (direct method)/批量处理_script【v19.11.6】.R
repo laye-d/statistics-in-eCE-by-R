@@ -8,6 +8,7 @@ function.name = "ÅúÁ¿´¦Àí_processfunc£ºÀ­ÉìÇúÏßÍ³¼ÆĞ¶ÔØ¹¦&³¬µ¯ĞÔÓ¦±ä&¼ÓÔØ¹¦¼°ÄÚº
 
 no.range_1cycle = c(1:4) #1´ÎÑ­»·µÄÎÄ¼şĞòºÅ·¶Î§
 no.range_2cycle = c(5:13) #2´ÎÑ­»·µÄÎÄ¼şĞòºÅ·¶Î§
+no.range_3cycle = c() #3´ÎÑ­»·µÄÎÄ¼şĞòºÅ·¶Î§
 
 stress_loading = 900#Ó¦Á¦
 stress_unloading = 5#Ó¦Á¦
@@ -36,7 +37,14 @@ for(i in no.range_2cycle){
                stress_loading = stress_loading,
                stress_unloading = stress_unloading)
 }
-
+#´¦Àí3´ÎÑ­»·ÎÄ¼ş
+for(i in no.range_3cycle){
+  process.func(sample.name = sample.name,
+               file.no = i,#´ı´¦ÀíÎÄ¼şĞòºÅ
+               num_cycle = 3,#Ñ­»·Êı
+               stress_loading = stress_loading,
+               stress_unloading = stress_unloading)
+}
 
 
 
